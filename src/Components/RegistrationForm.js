@@ -32,7 +32,6 @@ const RegistrationForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Xử lý dữ liệu gửi đến server hoặc validation ở đây
         console.log(formData);
     };
 
@@ -126,7 +125,7 @@ const RegistrationForm = () => {
                     />
                     <label htmlFor="terms">Tôi đồng ý với các điều khoản và điều kiện</label>
                 </div>
-                <div className="form-group">
+                <div className="form-group-2">
                     <ReCAPTCHA
                         sitekey="6LdNWikqAAAAAOjyoVWUvJVAeaoXhiwUKZyQ3rb-"
                         onChange={handleRecaptcha}
