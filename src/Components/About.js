@@ -1,38 +1,60 @@
-import React from "react";
-import AboutBackground from "../Assets/about-background.png";
-import AboutBackgroundImage from "../Assets/about-background-image.png";
+import React, { useState } from "react";
+import AboutBackgroundImage from "../Assets/ban-do.png";
 import { BsFillPlayCircleFill } from "react-icons/bs";
 
 const About = () => {
+  const [showVideo, setShowVideo] = useState(false);
+
   return (
-    <div className="about-section-container">
-      <div className="about-background-image-container">
-        <img src={AboutBackground} alt="" />
-      </div>
-      <div className="about-section-image-container">
-        <img src={AboutBackgroundImage} alt="" />
-      </div>
+    <section id="about" className="about-section-container">
       <div className="about-section-text-container">
-        <p className="primary-subheading">About</p>
+        <p className="primary-subheading">Về Shophouse Vega City</p>
         <h1 className="primary-heading">
-          Food Is An Important Part Of A Balanced Diet
+          Shophouse Vega City Nha Trang – Khu Phố Thương Mại Ven Biển Độc Đáo
         </h1>
+        <div className="about-section-image-container">
+          <img src={AboutBackgroundImage} alt="Vega City Shophouse" />
+        </div>
         <p className="primary-text">
-          Lorem ipsum dolor sit amet consectetur. Non tincidunt magna non et
-          elit. Dolor turpis molestie dui magnis facilisis at fringilla quam.
+          Mặt bằng chi tiết Shophouse Vega City nằm trên tổng diện tích 43.81Ha (bao gồm 2 giai đoạn, trong đó giai đoạn 1 là 15.61 Ha), mật độ xây dựng là 23.7%. Lấy concept là quần thể bất động sản phức hợp Nghệ thuật – nghỉ dưỡng – giải trí ven biển duy nhất và đầu tiên tại Nha Trang.
         </p>
         <p className="primary-text">
-          Non tincidunt magna non et elit. Dolor turpis molestie dui magnis
-          facilisis at fringilla quam.
+          Giai đoạn đầu, chủ đầu tư mở bán sản phẩm đặc biệt nhất của siêu dự án Vega City với 168 căn Shophouse, mang đến cho cư dân và khách hàng một không gian sống và làm việc độc quyền ngay sát bãi biển.
         </p>
         <div className="about-buttons-container">
-          <button className="secondary-button">Learn More</button>
-          <button className="watch-video-button">
-            <BsFillPlayCircleFill /> Watch Video
+          <button className="secondary-button">Tìm Hiểu Thêm</button>
+          <button 
+            className="watch-video-button"
+            onClick={() => setShowVideo(true)}
+            aria-label="Watch Video"
+          >
+            <BsFillPlayCircleFill /> Xem Video
           </button>
         </div>
       </div>
-    </div>
+
+      {showVideo && (
+        <div className="video-container">
+          <iframe 
+            width="100%" 
+            height="100%" 
+            src="https://www.youtube.com/embed/snQaT-JaNYQ" 
+            title="Shophouse Vega City Nha Trang" 
+            frameBorder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            referrerPolicy="strict-origin-when-cross-origin" 
+            allowFullScreen
+          ></iframe>
+          <button 
+            className="close-button" 
+            onClick={() => setShowVideo(false)} 
+            aria-label="Close Video"
+          >
+            Đóng
+          </button>
+        </div>
+      )}
+    </section>
   );
 };
 
