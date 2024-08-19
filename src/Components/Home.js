@@ -1,6 +1,7 @@
 import React from "react";
 import BannerImage from "../Assets/Vega-City-Nha-Trang.png";
 import Navbar from "./Navbar";
+import Logo from "../Assets/Logo.png"
 import { FiArrowRight } from "react-icons/fi";
 import LazyLoad from "react-lazyload";
 const Home = () => {
@@ -8,6 +9,7 @@ const Home = () => {
     <div className="home-container">
       <Navbar />
       <div className="home-banner-container">
+        <image src={Logo} />
         <div className="home-text-content">
           <h1 className="primary-heading-home">
             Khám Phá Cuộc Sống Sang Trọng Tại Vega City Nha Trang
@@ -17,7 +19,7 @@ const Home = () => {
           </p>
         </div>
         <div className="home-image-section">
-          <LazyLoad height={200} offset={100} once>
+          <LazyLoad height={400} offset={300} once>
             <img className="home-image" src={BannerImage} alt="Vega City Shophouse" />
           </LazyLoad>
         </div>
