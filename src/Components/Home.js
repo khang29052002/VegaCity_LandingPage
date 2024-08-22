@@ -1,7 +1,7 @@
 import React from "react";
 import BannerImage from "../Assets/Vega-City-Nha-Trang.png";
 import Navbar from "./Navbar";
-import Logo from "../Assets/Logo.png"
+import Logo from "../Assets/Logo_1.png"
 import { FiArrowRight } from "react-icons/fi";
 import LazyLoad from "react-lazyload";
 const Home = () => {

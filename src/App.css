@@ -115,7 +115,7 @@ nav {
 }
 
 .primary-heading {
-  font-size: 38px;
+  font-size: 35px;
   margin-top: 30px;
 }
 
@@ -280,6 +280,7 @@ nav {
   margin: 6rem 0rem;
   display: flex;
   margin-top: 10rem;
+  background-color: #f4d700;
 }
 
 .footer-logo-container {
@@ -297,6 +298,7 @@ nav {
 }
 
 .footer-section-two {
+  margin-top: 40px;
   flex: 1;
   display: flex;
   justify-content: flex-end;
@@ -375,13 +377,14 @@ nav {
   justify-content: space-between;
   flex-wrap: wrap;
   margin-top: 2rem;
+  min-height: auto;
 }
 
 /* Work Section Styles */
 .work-section-info {
   width: calc(25% - 2rem);
   /* 4 cards per row */
-  min-height: 350px;
+  min-height: 450px;
   background-color: rgba(255, 255, 255, 0.7);
   padding: 1rem 2rem;
   display: flex;
@@ -396,7 +399,14 @@ nav {
   transition: all 0.3s ease;
   cursor: pointer;
   overflow: hidden;
+  box-shadow: #218838;
+  border: 1px solid transparent; 
 }
+
+.work-section-info:hover {
+  border-color: #7e1e06; 
+}
+
 
 /* Ensure consistent height for the title container */
 .work-section-info h2 {
@@ -499,7 +509,7 @@ nav {
   justify-content: space-between;
   align-items: center;
   padding: 0.5rem 2rem;
-  background-color: #0000FF;
+  background-color: #f4ec08;
   color: #fff;
   width: 100vw;
   position: fixed;
@@ -616,4 +626,8 @@ h1 {
 
 .form-group-2 {
   margin-top: 20px;
+}
+.logo_image{
+  height: 150px;
+  width: 150px;
 }

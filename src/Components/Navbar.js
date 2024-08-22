@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Logo from "../Assets/Logo.svg";
+import Logo from "../Assets/Logo_1.png";
 import { BsCart2 } from "react-icons/bs";
 import { HiOutlineBars3 } from "react-icons/hi2";
 import Box from "@mui/material/Box";
@@ -36,13 +36,13 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="nav-logo-container">
-        <img src={Logo} alt="Logo" className="w-16 h-16 object-contain" />
+        <img src={Logo} alt="Logo" className="logo_image" />
       </div>
 
       <div className="navbar-links-container hidden md:flex space-x-6">
-        <a href="#" className="text-gray-100 hover:text-blue-300">Home</a>
-        <a href="#about" className="text-gray-100 hover:text-blue-300">About</a>
-        <a href="#contact" className="text-gray-100 hover:text-blue-300">Contact</a>
+        <a href="#" className="text-black-100 hover:text-blue-300">Home</a>
+        <a href="#about" className="text-black-100 hover:text-blue-300">About</a>
+        <a href="#contact" className="text-black-100 hover:text-blue-300">Contact</a>
       </div>
 
       <div className="navbar-menu-container md:hidden">
