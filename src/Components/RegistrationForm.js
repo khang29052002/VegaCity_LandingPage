@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import ReCAPTCHA from 'react-google-recaptcha';
 
 const RegistrationForm = () => {
     const [formData, setFormData] = useState({
@@ -21,50 +20,36 @@ const RegistrationForm = () => {
         }));
     };
 
-    const handleRecaptcha = (value) => {
-        setFormData(prevState => ({
-            ...prevState,
-            recaptcha: value
-        }));
-        console.log('reCAPTCHA Token:', value);
+    const handleRecaptcha = async () => {
+        return new Promise((resolve, reject) => {
+            window.grecaptcha.enterprise.ready(async () => {
+                try {
+                    const token = await window.grecaptcha.enterprise.execute('6LezcjUqAAAAAJOGZvaenXPVuS_InhM5pJDXay9Z', { action: 'REGISTER' });
+                    resolve(token);
+                } catch (error) {
+                    reject('Failed to get reCAPTCHA token');
+                }
+            });
+        });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!formData.recaptcha) {
-            alert('Vui lòng hoàn tất reCAPTCHA');
-            return;
+        try {
+            const recaptchaToken = await handleRecaptcha();
+            setFormData(prevState => ({
+                ...prevState,
+                recaptcha: recaptchaToken
+            }));
+            console.log('reCAPTCHA Token:', recaptchaToken);
+
+            // Xử lý dữ liệu biểu mẫu và gửi token
+            console.log('Dữ liệu Form:', formData);
+            alert('Đăng ký thành công!');
+        } catch (error) {
+            alert('Xác thực reCAPTCHA không thành công.');
         }
-
-        fetch('https://recaptchaenterprise.googleapis.com/v1/projects/vega-city-1725356695744/assessments?key=6Lft6DQqAAAAABrLgRQGTYDQSPgiM8yBSIAvvL4k', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                event: {
-                    token: formData.recaptcha,
-                    siteKey: '6Lft6DQqAAAAABrLgRQGTYDQSPgiM8yBSIAvvL4k',
-                    expectedAction: 'REGISTER'
-                }
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Kết quả xác thực reCAPTCHA:', data);
-
-            if (data.tokenProperties.valid) {
-                console.log('Dữ liệu Form:', formData);
-                alert('Đăng ký thành công!');
-            } else {
-                alert('Xác thực reCAPTCHA không hợp lệ.');
-            }
-        })
-        .catch(error => {
-            console.error('Lỗi:', error);
-            alert('Có lỗi xảy ra khi xác thực reCAPTCHA.');
-        });
     };
 
     return (
@@ -145,12 +130,6 @@ const RegistrationForm = () => {
                         required
                     />
                     <label htmlFor="terms">Tôi đồng ý với các điều khoản và điều kiện</label>
-                </div>
-                <div className="form-group-2">
-                    <ReCAPTCHA
-                        sitekey="6Lft6DQqAAAAABrLgRQGTYDQSPgiM8yBSIAvvL4k"
-                        onChange={handleRecaptcha}
-                    />
                 </div>
                 <div className="form-group">
                     <button type="submit">Đăng Ký</button>
