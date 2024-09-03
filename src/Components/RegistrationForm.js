@@ -116,9 +116,10 @@ const RegistrationForm = () => {
                 </div>
                 <div className="form-group-2">
                     <ReCAPTCHA
-                        sitekey="6LezcjUqAAAAAIx57S-XMPMPKLY7YA3tsz8cizmE"
+                        sitekey="6LezcjUqAAAAAJOGZvaenXPVuS_InhM5pJDXay9Z"
                         onChange={handleRecaptcha}
                     />
+
                 </div>
                 <div className="form-group">
                     <button type="submit">Đăng Ký</button>
