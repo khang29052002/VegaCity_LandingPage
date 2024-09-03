@@ -116,7 +116,7 @@ const RegistrationForm = () => {
                 </div>
                 <div className="form-group-2">
                     <ReCAPTCHA
-                        sitekey="6LcLayoqAAAAAN9ZpCqX0IQ6T8sv4SyU6cLX2ssi"
+                        sitekey="6LezcjUqAAAAAIx57S-XMPMPKLY7YA3tsz8cizmE"
                         onChange={handleRecaptcha}
                     />
                 </div>
