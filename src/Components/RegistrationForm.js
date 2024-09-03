@@ -1,4 +1,3 @@
-// src/components/RegistrationForm.js
 import React, { useState } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
 
@@ -8,7 +7,6 @@ const RegistrationForm = () => {
         phone: '',
         cccd: '',
         address: '',
-        store: '',
         email: '',
         reason: '',
         terms: false,
@@ -28,11 +26,45 @@ const RegistrationForm = () => {
             ...prevState,
             recaptcha: value
         }));
+        console.log('reCAPTCHA Token:', value);
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(formData);
+
+        if (!formData.recaptcha) {
+            alert('Vui lòng hoàn tất reCAPTCHA');
+            return;
+        }
+
+        fetch('https://recaptchaenterprise.googleapis.com/v1/projects/vega-city-1725356695744/assessments?key=6Lft6DQqAAAAABrLgRQGTYDQSPgiM8yBSIAvvL4k', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                event: {
+                    token: formData.recaptcha,
+                    siteKey: '6Lft6DQqAAAAABrLgRQGTYDQSPgiM8yBSIAvvL4k',
+                    expectedAction: 'REGISTER'
+                }
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Kết quả xác thực reCAPTCHA:', data);
+
+            if (data.tokenProperties.valid) {
+                console.log('Dữ liệu Form:', formData);
+                alert('Đăng ký thành công!');
+            } else {
+                alert('Xác thực reCAPTCHA không hợp lệ.');
+            }
+        })
+        .catch(error => {
+            console.error('Lỗi:', error);
+            alert('Có lỗi xảy ra khi xác thực reCAPTCHA.');
+        });
     };
 
     return (
@@ -116,10 +148,9 @@ const RegistrationForm = () => {
                 </div>
                 <div className="form-group-2">
                     <ReCAPTCHA
-                        sitekey="6LezcjUqAAAAAJOGZvaenXPVuS_InhM5pJDXay9Z"
+                        sitekey="6Lft6DQqAAAAABrLgRQGTYDQSPgiM8yBSIAvvL4k"
                         onChange={handleRecaptcha}
                     />
-
                 </div>
                 <div className="form-group">
                     <button type="submit">Đăng Ký</button>
