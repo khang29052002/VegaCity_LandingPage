@@ -84,17 +84,6 @@ const RegistrationForm = () => {
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="store">Tên cửa hàng:</label>
-                    <input
-                        type="text"
-                        id="store"
-                        name="store"
-                        value={formData.store}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div className="form-group">
                     <label htmlFor="email">Email:</label>
                     <input
                         type="email"
