@@ -1,32 +1,33 @@
 import React from "react";
-import BannerBackground from "../Assets/home-banner-background.png";
-import BannerImage from "../Assets/home-banner-image.png";
+import BannerImage from "../Assets/Vega-City-Nha-Trang.png";
 import Navbar from "./Navbar";
+import Logo from "../Assets/Logo_1.png"
 import { FiArrowRight } from "react-icons/fi";
-
+import LazyLoad from "react-lazyload";
 const Home = () => {
   return (
     <div className="home-container">
       <Navbar />
       <div className="home-banner-container">
-        <div className="home-bannerImage-container">
-          <img src={BannerBackground} alt="" />
-        </div>
-        <div className="home-text-section">
-          <h1 className="primary-heading">
-            Your Favourite Food Delivered Hot & Fresh
+        <image src={Logo} />
+        <div className="home-text-content">
+          <h1 className="primary-heading-home">
+            Khám Phá Cuộc Sống Sang Trọng Tại Vega City Nha Trang
           </h1>
           <p className="primary-text">
-            Healthy switcher chefs do all the prep work, like peeding, chopping
-            & marinating, so you can cook a fresh food.
+            Tận hưởng vẻ đẹp và sự tiện nghi của Shophouse Vega City – nơi bạn có thể trải nghiệm cuộc sống ven biển độc quyền với thiết kế hiện đại và không gian sống tươi mới.
           </p>
-          <button className="secondary-button">
-            Order Now <FiArrowRight />{" "}
-          </button>
         </div>
         <div className="home-image-section">
-          <img src={BannerImage} alt="" />
+          <LazyLoad height={400} offset={300} once>
+            <img className="home-image" src={BannerImage} alt="Vega City Shophouse" />
+          </LazyLoad>
         </div>
+      </div>
+      <div className="button-container">
+        <button className="secondary-button">
+          Khám Phá Ngay <FiArrowRight />{" "}
+        </button>
       </div>
     </div>
   );
