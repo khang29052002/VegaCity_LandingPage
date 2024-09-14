@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const RegistrationForm = () => {
     const [formData, setFormData] = useState({
@@ -25,11 +26,9 @@ const RegistrationForm = () => {
             window.grecaptcha.enterprise.ready(async () => {
                 try {  
                     const token = await window.grecaptcha.enterprise.execute('6Lch2UIqAAAAABAAZDSdWg-6MCG7RAATXiRrSlGz', { action: 'REGISTER' });
-                    console.log('Token:')
                     resolve(token);
                 } catch (error) {
                     reject('Failed to get reCAPTCHA token');
-                    console.log('log')
                 }
             });
         });
@@ -44,11 +43,25 @@ const RegistrationForm = () => {
                 ...prevState,
                 recaptcha: recaptchaToken
             }));
-            console.log('reCAPTCHA Token:', recaptchaToken);
-            console.log('Dữ liệu Form:', formData);
+
+            // API payload
+            const payload = {
+                fullName: formData.name,
+                phoneNumber: formData.phone,
+                cccd: formData.cccd,
+                address: formData.address,
+                email: formData.email,
+                description: formData.reason,
+                roleName: 'Store'  // Set roleName to 'Store'
+            };
+
+            // Send API request
+            const response = await axios.post('https://vega.vinhuser.one/api/v1/auth/sign-up/landing-page', payload);
+            console.log('API response:', response.data);
             alert('Đăng ký thành công!');
         } catch (error) {
-            alert('Xác thực reCAPTCHA không thành công.');
+            alert('Xác thực reCAPTCHA hoặc đăng ký không thành công.');
+            console.error('Error:', error);
         }
     };
 
@@ -120,7 +133,7 @@ const RegistrationForm = () => {
                         onChange={handleChange}
                     ></textarea>
                 </div>
-                <div className="form-group-1">
+                <div className="form-group">
                     <input
                         type="checkbox"
                         id="terms"
