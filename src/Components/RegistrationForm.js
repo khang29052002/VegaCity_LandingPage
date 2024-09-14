@@ -52,10 +52,10 @@ const RegistrationForm = () => {
                 address: formData.address,
                 email: formData.email,
                 description: formData.reason,
-                roleName: 'Store'  // Set roleName to 'Store'
+                roleName: 'Store'  
             };
 
-            // Send API request
+           
             const response = await axios.post('https://vega.vinhuser.one/api/v1/auth/sign-up/landing-page', payload);
             console.log('API response:', response.data);
             alert('Đăng ký thành công!');
@@ -133,7 +133,7 @@ const RegistrationForm = () => {
                         onChange={handleChange}
                     ></textarea>
                 </div>
-                <div className="form-group">
+                <div className="form-group-1">
                     <input
                         type="checkbox"
                         id="terms"
