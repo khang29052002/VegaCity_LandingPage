@@ -23,8 +23,8 @@ const RegistrationForm = () => {
     const handleRecaptcha = async () => {
         return new Promise((resolve, reject) => {
             window.grecaptcha.enterprise.ready(async () => {
-                try {
-                    const token = await window.grecaptcha.enterprise.execute('6LcrzEIqAAAAAPOTm7NR-tmFGAVic6jEIz4XfjTu', { action: 'REGISTER' });
+                try {  
+                    const token = await window.grecaptcha.enterprise.execute('6Lch2UIqAAAAABAAZDSdWg-6MCG7RAATXiRrSlGz', { action: 'REGISTER' });
                     resolve(token);
                 } catch (error) {
                     reject('Failed to get reCAPTCHA token');
