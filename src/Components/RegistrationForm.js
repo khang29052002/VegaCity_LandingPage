@@ -25,9 +25,11 @@ const RegistrationForm = () => {
             window.grecaptcha.enterprise.ready(async () => {
                 try {  
                     const token = await window.grecaptcha.enterprise.execute('6Lch2UIqAAAAABAAZDSdWg-6MCG7RAATXiRrSlGz', { action: 'REGISTER' });
+                    console.log('Token:')
                     resolve(token);
                 } catch (error) {
                     reject('Failed to get reCAPTCHA token');
+                    console.log('log')
                 }
             });
         });
@@ -43,8 +45,6 @@ const RegistrationForm = () => {
                 recaptcha: recaptchaToken
             }));
             console.log('reCAPTCHA Token:', recaptchaToken);
-
-            // Xử lý dữ liệu biểu mẫu và gửi token
             console.log('Dữ liệu Form:', formData);
             alert('Đăng ký thành công!');
         } catch (error) {
