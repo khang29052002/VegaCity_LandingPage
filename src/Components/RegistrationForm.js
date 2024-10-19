@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const RegistrationForm = () => {
   const [formData, setFormData] = useState({
@@ -48,7 +50,6 @@ const RegistrationForm = () => {
         recaptcha: recaptchaToken,
       }));
 
-      // API payload
       const payload = {
         apiKey: "5f728deb-b2c3-4bac-9d9c-41a11e0acccc",
         fullName: formData.name,
@@ -64,10 +65,13 @@ const RegistrationForm = () => {
         "https://api.vegacity.id.vn/api/v1/auth/sign-up/landing-page",
         payload
       );
+
+      toast.success("Đăng ký thành công!", { position: "top-right" });
       console.log("API response:", response.data);
-      alert("Đăng ký thành công!");
     } catch (error) {
-      alert("Xác thực reCAPTCHA hoặc đăng ký không thành công.");
+      toast.error("Xác thực reCAPTCHA hoặc đăng ký không thành công.", {
+        position: "top-right",
+      });
       console.error("Error:", error);
     }
   };
@@ -157,6 +161,7 @@ const RegistrationForm = () => {
           <button type="submit">Đăng Ký</button>
         </div>
       </form>
+      <ToastContainer />
     </div>
   );
 };
