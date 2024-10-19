@@ -81,7 +81,7 @@ const RegistrationForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!validate()) return;
+    if (!validate()) return; // Stop submission if validation fails
 
     try {
       const recaptchaToken = await handleRecaptcha();
@@ -110,18 +110,10 @@ const RegistrationForm = () => {
       console.log("API response:", response.data);
     } catch (error) {
       if (error.response) {
-        const apiError = error.response.data?.message || "Đã có lỗi xảy ra.";
-        if (apiError.includes("email")) {
-          toast.error("Email đã được sử dụng.", { position: "top-right" });
-        } else if (apiError.includes("phone")) {
-          toast.error("Số điện thoại đã tồn tại.", { position: "top-right" });
-        } else if (apiError.includes("cccd")) {
-          toast.error("CCCD đã tồn tại.", { position: "top-right" });
-        } else if (apiError.includes("name")) {
-          toast.error("Tên đã tồn tại.", { position: "top-right" });
-        } else {
-          toast.error(`Lỗi: ${apiError}`, { position: "top-right" });
-        }
+        const apiError =
+          error.response.data?.messageResponse || "Đã có lỗi xảy ra.";
+
+        toast.error(apiError, { position: "top-right" });
 
         console.error("API error response:", error.response);
       } else if (error.request) {
