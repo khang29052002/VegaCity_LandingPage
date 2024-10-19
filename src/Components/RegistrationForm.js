@@ -16,6 +16,44 @@ const RegistrationForm = () => {
     recaptcha: "",
   });
 
+  const [errors, setErrors] = useState({});
+  const emailRegex =
+    /^(?!.*\.\.)(?!.*@\d+)(?!.*@[^.]*\.$)(?!.*@[^.]*-)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  const nameRegex = /^[a-zA-ZÀ-ỹ\s]+$/;
+  const validate = () => {
+    const newErrors = {};
+    if (!formData.name.trim()) {
+      newErrors.name = "Tên không được để trống.";
+    } else if (!nameRegex.test(formData.name) || !formData.name.includes(" ")) {
+      newErrors.name =
+        "Tên phải có khoảng trắng và không chứa ký tự lạ hoặc số.";
+    }
+    if (!/^\d{10}$/.test(formData.phone)) {
+      newErrors.phone =
+        "Số điện thoại phải có đúng 10 chữ số và không chứa ký tự lạ.";
+    }
+    if (!/^\d{12}$/.test(formData.cccd)) {
+      newErrors.cccd = "CCCD phải gồm 12 chữ số và không chứa ký tự lạ.";
+    }
+
+    if (!formData.address.trim()) {
+      newErrors.address = "Địa chỉ không được để trống.";
+    }
+
+    if (!formData.email) {
+      newErrors.email = "Email không được để trống.";
+    } else if (!emailRegex.test(formData.email)) {
+      newErrors.email = "Email không hợp lệ.";
+    }
+
+    if (!formData.terms) {
+      newErrors.terms = "Bạn phải đồng ý với điều khoản.";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData((prevState) => ({
@@ -43,6 +81,8 @@ const RegistrationForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!validate()) return;
+
     try {
       const recaptchaToken = await handleRecaptcha();
       setFormData((prevState) => ({
@@ -69,10 +109,32 @@ const RegistrationForm = () => {
       toast.success("Đăng ký thành công!", { position: "top-right" });
       console.log("API response:", response.data);
     } catch (error) {
-      toast.error("Xác thực reCAPTCHA hoặc đăng ký không thành công.", {
-        position: "top-right",
-      });
-      console.error("Error:", error);
+      if (error.response) {
+        const apiError = error.response.data?.message || "Đã có lỗi xảy ra.";
+        if (apiError.includes("email")) {
+          toast.error("Email đã được sử dụng.", { position: "top-right" });
+        } else if (apiError.includes("phone")) {
+          toast.error("Số điện thoại đã tồn tại.", { position: "top-right" });
+        } else if (apiError.includes("cccd")) {
+          toast.error("CCCD đã tồn tại.", { position: "top-right" });
+        } else if (apiError.includes("name")) {
+          toast.error("Tên đã tồn tại.", { position: "top-right" });
+        } else {
+          toast.error(`Lỗi: ${apiError}`, { position: "top-right" });
+        }
+
+        console.error("API error response:", error.response);
+      } else if (error.request) {
+        toast.error("Không thể kết nối đến máy chủ.", {
+          position: "top-right",
+        });
+        console.error("Request error:", error.request);
+      } else {
+        toast.error("Đã có lỗi xảy ra. Vui lòng thử lại.", {
+          position: "top-right",
+        });
+        console.error("Unexpected error:", error.message);
+      }
     }
   };
 
@@ -90,6 +152,7 @@ const RegistrationForm = () => {
             onChange={handleChange}
             required
           />
+          {errors.name && <span className="error">{errors.name}</span>}
         </div>
         <div className="form-group">
           <label htmlFor="phone">Số điện thoại:</label>
@@ -101,6 +164,7 @@ const RegistrationForm = () => {
             onChange={handleChange}
             required
           />
+          {errors.phone && <span className="error">{errors.phone}</span>}
         </div>
         <div className="form-group">
           <label htmlFor="cccd">CCCD:</label>
@@ -112,6 +176,7 @@ const RegistrationForm = () => {
             onChange={handleChange}
             required
           />
+          {errors.cccd && <span className="error">{errors.cccd}</span>}
         </div>
         <div className="form-group">
           <label htmlFor="address">Địa chỉ:</label>
@@ -123,6 +188,7 @@ const RegistrationForm = () => {
             onChange={handleChange}
             required
           />
+          {errors.address && <span className="error">{errors.address}</span>}
         </div>
         <div className="form-group">
           <label htmlFor="email">Email:</label>
@@ -134,6 +200,7 @@ const RegistrationForm = () => {
             onChange={handleChange}
             required
           />
+          {errors.email && <span className="error">{errors.email}</span>}
         </div>
         <div className="form-group">
           <label htmlFor="reason">Lý do đăng ký (tùy chọn):</label>
@@ -156,6 +223,7 @@ const RegistrationForm = () => {
           <label htmlFor="terms">
             Tôi đồng ý với các điều khoản và điều kiện
           </label>
+          {errors.terms && <span className="error">{errors.terms}</span>}
         </div>
         <div className="form-group">
           <button type="submit">Đăng Ký</button>
