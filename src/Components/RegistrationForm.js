@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const RegistrationForm = () => {
     const [formData, setFormData] = useState({
@@ -24,7 +26,7 @@ const RegistrationForm = () => {
     const handleRecaptcha = async () => {
         return new Promise((resolve, reject) => {
             window.grecaptcha.enterprise.ready(async () => {
-                try {  
+                try {
                     const token = await window.grecaptcha.enterprise.execute('6Lch2UIqAAAAABAAZDSdWg-6MCG7RAATXiRrSlGz', { action: 'REGISTER' });
                     resolve(token);
                 } catch (error) {
@@ -44,7 +46,7 @@ const RegistrationForm = () => {
                 recaptcha: recaptchaToken
             }));
 
-            // API payload
+            
             const payload = {
                 fullName: formData.name,
                 phoneNumber: formData.phone,
@@ -55,12 +57,12 @@ const RegistrationForm = () => {
                 roleName: 'Store'  
             };
 
-           
             const response = await axios.post('https://vega.vinhuser.one/api/v1/auth/sign-up/landing-page', payload);
             console.log('API response:', response.data);
-            alert('Đăng ký thành công!');
+
+            toast.success('Đăng ký thành công!');  
         } catch (error) {
-            alert('Xác thực reCAPTCHA hoặc đăng ký không thành công.');
+            toast.error('đăng ký không thành công!');
             console.error('Error:', error);
         }
     };
@@ -148,6 +150,7 @@ const RegistrationForm = () => {
                     <button type="submit">Đăng Ký</button>
                 </div>
             </form>
+            <ToastContainer />
         </div>
     );
 };
