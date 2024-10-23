@@ -132,7 +132,7 @@ const RegistrationForm = () => {
   };
 
   return (
-    <div className="container">
+    <div className="container-register">
       <h1>Đăng Ký</h1>
       <form onSubmit={handleSubmit}>
         <div className="form-group">

@@ -560,7 +560,7 @@ nav {
 }
 
 /* src/components/RegistrationForm.css */
-.container {
+.container-register {
   max-width: 600px;
   margin: 20px auto;
   padding: 20px;
@@ -709,8 +709,9 @@ h1 {
 .container {
   width: 100%;
   max-width: 1200px;
-  margin: 10 auto;
-  padding: 0 1rem;
+
+  margin: 20px auto;
+  padding: 20px;
   height: 200px;
 }
 
@@ -824,7 +825,7 @@ select:focus {
   line-height: 1.2;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   animation: fadeIn 0.8s ease-out;
-  color: black;
+  color: white;
 }
 
 .hero-description {

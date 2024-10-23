@@ -291,7 +291,7 @@ const Store = () => {
           </div>
         )}
         {/* Load More Button */}
-        {hasMore && (
+        {/* {hasMore && (
           <div className="load-more-container">
             <button
               onClick={handleLoadMore}
@@ -302,7 +302,7 @@ const Store = () => {
               {loading ? "Đang tải..." : "Tải thêm"}
             </button>
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );
