@@ -20,6 +20,7 @@ const RegistrationForm = () => {
   const emailRegex =
     /^(?!.*\.\.)(?!.*@\d+)(?!.*@[^.]*\.$)(?!.*@[^.]*-)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const nameRegex = /^[a-zA-ZÀ-ỹ\s]+$/;
+
   const validate = () => {
     const newErrors = {};
     if (!formData.name.trim()) {
@@ -213,7 +214,15 @@ const RegistrationForm = () => {
             required
           />
           <label htmlFor="terms">
-            Tôi đồng ý với các điều khoản và điều kiện
+            Tôi đồng ý với{" "}
+            <a
+              href="/terms-and-conditions"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-500 hover:text-blue-500 underline"
+            >
+              Các điều khoản và điều kiện
+            </a>
           </label>
           {errors.terms && <span className="error">{errors.terms}</span>}
         </div>
